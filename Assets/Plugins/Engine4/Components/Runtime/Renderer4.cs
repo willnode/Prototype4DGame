@@ -111,7 +111,10 @@ namespace Engine4
 
             _visualizer.Initialize(_helper);
 
-            if (viewer4.projector.IsCullable(_bounds))
+            var bound = _bounds;
+            bound.radius *= Vector4.MaxPerElem(transform4.localScale);
+
+            if (viewer4.culling && viewer4.projector.IsCullable(bound))
             {
                 _visualizer.Clear(_mesh);
                 return;
@@ -160,7 +163,6 @@ namespace Engine4
             }
         #endif
         }
-
 
         void OnEnable()
         {

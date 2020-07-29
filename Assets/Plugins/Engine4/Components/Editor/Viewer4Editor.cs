@@ -8,11 +8,13 @@ namespace Engine4.Editing
 
         SerializedProperty projection;
         SerializedProperty background;
+        SerializedProperty culling;
 
         void OnEnable()
         {
             projection = serializedObject.FindProperty("projection");
             background = serializedObject.FindProperty("background");
+            culling = serializedObject.FindProperty("culling");
         }
 
         public override void OnInspectorGUI()
@@ -21,6 +23,7 @@ namespace Engine4.Editing
             EditorGUI.BeginChangeCheck();
             EditorGUILayout.PropertyField(projection);
             EditorGUILayout.PropertyField(background);
+            EditorGUILayout.PropertyField(culling);
             if (background.boolValue)
             {
 #if UNITY_WEBGL

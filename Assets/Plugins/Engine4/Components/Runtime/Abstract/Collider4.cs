@@ -58,7 +58,8 @@ namespace Engine4.Physics
         {
             if (!rigidbody4)
             {
-                // Add a rigidbody 
+                // Add a rigidbody (note that Rigidbody4 can be in the parent object)
+                Debug.LogError("A Collider4 must have a rigidbody4 attached!", this);
                 _shape = Shape.CreateShape(type);
                 var g = gameObject.AddComponent<Rigidbody4>();
                 g.body.AddShape(_shape);

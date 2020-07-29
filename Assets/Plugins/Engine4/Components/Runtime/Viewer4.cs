@@ -29,7 +29,15 @@ namespace Engine4
         /// <remarks>
         /// Changes to this variable requires a call to <see cref="Validate"/> to take effect.
         /// </remarks>
-        public bool background = false;
+        public bool background = true;
+
+        /// <summary>
+        /// Should renderers enable culling? (experimental)
+        /// </summary>
+        /// <remarks>
+        /// Changes to this variable requires a call to <see cref="Validate"/> to take effect.
+        /// </remarks>
+        public bool culling = true;
 
         Projector4 _projector;
 
