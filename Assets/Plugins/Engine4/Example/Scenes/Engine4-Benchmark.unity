@@ -492,7 +492,7 @@ MonoBehaviour:
   - {fileID: 1249357888}
   - {fileID: 1249357889}
   - {fileID: 1249357890}
-  identifier: b0ef7632b84ac22762af8d2b987ae92a6d58a8264c68af2a
+  identifier: a04e0f5bf0a3960671b34a077704a62c32b0cb03ddf7c34f
 --- !u!114 &1249357892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -582,6 +582,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projection: 0
   background: 1
+  culling: 0
 --- !u!114 &1269641396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -601,25 +602,25 @@ MonoBehaviour:
     w: 0
   m_Rotation:
     ex:
-      x: 1
-      y: -0
-      z: 0
-      w: -0
+      x: -0.00000004371139
+      y: 0
+      z: -0
+      w: -1
     ey:
       x: 0
       y: 1
       z: 0
-      w: -0
+      w: 0
     ez:
       x: 0
       y: 0
       z: 1
-      w: -0
+      w: 0
     ew:
-      x: 0
+      x: 1
       y: 0
       z: 0
-      w: 1
+      w: -0.00000004371139
   m_Scale:
     x: 1
     y: 1
@@ -654,6 +655,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   obj: {fileID: 1987912627926222, guid: 362613637f3c2c44189cff4194e5e5c4, type: 3}
   count: 100
+  variable: 0
   fps: {fileID: 469776000}
 --- !u!1 &1466364422
 GameObject:

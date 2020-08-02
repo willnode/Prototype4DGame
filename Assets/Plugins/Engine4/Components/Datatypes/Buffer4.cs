@@ -2,6 +2,7 @@
 using UnityEngine;
 using AOORE = System.ArgumentOutOfRangeException;
 using System.ComponentModel;
+using System.Collections.Generic;
 
 namespace Engine4
 {
@@ -25,6 +26,9 @@ namespace Engine4
         /// <remarks> Vertex profile respects to indices, not vertices </remarks>
         [EditorBrowsable(EditorBrowsableState.Advanced)]
         public VertexProfile[] m_Profiles = new VertexProfile[4];
+
+        [NonSerialized]
+        public Queue<VertexProfile> m_ProfilesQueue = new Queue<VertexProfile>();
 
         /// <remarks> Get internal indices count </remarks>
         [EditorBrowsable(EditorBrowsableState.Advanced)]

@@ -31,12 +31,10 @@ public class Rigidbody4Editor : NoScriptEditor
             EditorApplication.update -= InspectorUpdate;
     }
 
-   // int frames = -1;
     void InspectorUpdate()
     {
         if (Time.frameCount % 10 == 0)
         {
-//            frames = Time.frameCount;
             Repaint();
         }
     }
@@ -44,7 +42,7 @@ public class Rigidbody4Editor : NoScriptEditor
 
     string GetInfoString (Rigidbody4 r)
     {
-        if (r.type != BodyType.DynamicBody) return string.Empty;
+        if (r.type == BodyType.StaticBody) return "Static objects don't move";
         return r.ToString(true);
     }
 }

@@ -10,16 +10,17 @@ namespace Engine4.Internal
     [ExecuteInEditMode]
     public class ProjectorJob : MonoBehaviour4
     {
-        public Queue<ProjectUnit> units = new Queue<ProjectUnit>();
+        public Queue<ProjectUnit>[] units = null;
         public Thread[] workers = null;
         public Projector4[] projectors = null;
         public int[] identifier = null;
-
-        AutoResetEvent blockade = new AutoResetEvent(false);
+        private int currentIndex = 0;
+        private int totalThread = 0;
+        AutoResetEvent[] blockade = null;
 
         void OnEnable()
         {
-            Initialize(viewer4.projector);
+            Initialize();
         }
 
         void OnDisable()
@@ -35,28 +36,33 @@ namespace Engine4.Internal
             }
             workers = null;
             projectors = null;
-            units.Clear();
+            units = null;
         }
 
         public void AddJob(ProjectUnit unit)
         {
-            units.Enqueue(unit);
-            blockade.Set();
+            lock (units[currentIndex])
+            {
+                units[currentIndex].Enqueue(unit);
+            }
+            blockade[currentIndex].Set();
+            currentIndex = (currentIndex + 1) % totalThread;
         }
 
-        public void Initialize<T>(T template) where T : Projector4
+        public void Initialize()
         {
-            blockade.Reset();
-            if (units.Count > 0)
-                blockade.Set();
+            currentIndex = 0;
+            totalThread = Environment.ProcessorCount;
+            units = new Queue<ProjectUnit>[totalThread];
+            blockade = new AutoResetEvent[totalThread];
+            workers = new Thread[totalThread];
+            projectors = new Projector4[totalThread];
+            identifier = new int[totalThread];
 
-            var count = Environment.ProcessorCount;
-            workers = new Thread[count];
-            projectors = new Projector4[count];
-            identifier = new int[count];
-
-            for (int i = 0; i < count; i++)
+            for (int i = 0; i < totalThread; i++)
             {
+                units[i] = new Queue<ProjectUnit>();
+                blockade[i] = new AutoResetEvent(false);
                 StartWork(i);
             }
         }
@@ -99,13 +105,13 @@ namespace Engine4.Internal
                     // Prevent race between threads
                     ProjectUnit unit = new ProjectUnit();
 
-                    blockade.WaitOne();
+                    blockade[index].WaitOne();
 
-                    lock (units)
+                    lock (units[index])
                     {
-                        if (units.Count != 0)
+                        if (units[index].Count != 0)
                         {
-                            unit = units.Dequeue();
+                            unit = units[index].Dequeue();
                         }
                     }
 
@@ -116,11 +122,14 @@ namespace Engine4.Internal
                     }
                 }
 
-                Debug.Log("Id not match, exiting");
             }
             catch (Exception)
             {
                 throw;
+            }
+            finally
+            {
+                identifier[index] = -1; // Debugging aid
             }
         }
 

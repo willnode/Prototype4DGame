@@ -109,7 +109,6 @@ namespace Engine4
             if (_visualizer == null)
                 return;
 
-            _visualizer.Initialize(_helper);
 
             var bound = _bounds;
             bound.radius *= Vector4.MaxPerElem(transform4.localScale);
@@ -128,6 +127,7 @@ namespace Engine4
                 if (_hyperState == 0)
                 {
                     _hyperState = 1;
+                    _visualizer.Initialize(_helper);
                     viewer4.projectorJob.AddJob(new ProjectUnit(_buffer, transform4.localToWorldMatrix.ToTRS(transform4.localScale), _visualizer, this));
                 }
                 else
@@ -135,6 +135,7 @@ namespace Engine4
             }
             else
             {
+                _visualizer.Initialize(_helper);
                 viewer4.projector.Project(_buffer, transform4.localToWorldMatrix.ToTRS(transform4.localScale), _visualizer);
             }
         }
@@ -255,8 +256,8 @@ namespace Engine4
                 m.name = "S4 Renderer Buffer";
                 m.hideFlags = HideFlags.DontSave;
             }
-            else
-                _mesh.Clear();
+            //else
+            //    _mesh.Clear();
             GetComponent<MeshFilter>().mesh = _mesh;
 
             // Setup buffer

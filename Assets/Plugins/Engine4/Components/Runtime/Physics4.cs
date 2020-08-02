@@ -25,6 +25,11 @@ namespace Engine4.Physics
             if (Application.isPlaying && main != this) Destroy(this); // multiscenario fix
         }
 
+        void Reset() 
+        {
+            defaultMaterial = Resources.Load<PhysicsMaterial4>("Default-PhysicsMaterial4");
+        }
+
         void OnEnable()
         {
             if (defaultMaterial == null)

@@ -377,7 +377,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 233315974}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.004143834, y: 0.0024012253, z: 0.007294029}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -556,173 +556,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &667067997
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 667067998}
-  - component: {fileID: 667068006}
-  - component: {fileID: 667068005}
-  - component: {fileID: 667068004}
-  - component: {fileID: 667068003}
-  - component: {fileID: 667068002}
-  - component: {fileID: 667068001}
-  - component: {fileID: 667068000}
-  - component: {fileID: 667067999}
-  m_Layer: 0
-  m_Name: Viewer4 Jobs
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &667067998
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 667067997}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 2126181669}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &667067999
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 667067997}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80125f7b45f1ecd4d9fec19f813a62ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &667068000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 667067997}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80125f7b45f1ecd4d9fec19f813a62ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &667068001
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 667067997}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80125f7b45f1ecd4d9fec19f813a62ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &667068002
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 667067997}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80125f7b45f1ecd4d9fec19f813a62ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &667068003
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 667067997}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80125f7b45f1ecd4d9fec19f813a62ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &667068004
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 667067997}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80125f7b45f1ecd4d9fec19f813a62ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &667068005
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 667067997}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37d78e3426b143242b4af149b9b84a12, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  projectors: []
-  identifier: 3619cf309d7a3b5ed82a740a0ff11f4dbe1346253da4a100
---- !u!114 &667068006
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 667067997}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05d191841e9df594fa361cc99283bfa5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Position:
-    x: 0
-    y: 0
-    z: 0
-    w: 0
-  m_Rotation:
-    ex:
-      x: 1
-      y: 0
-      z: 0
-      w: 0
-    ey:
-      x: 0
-      y: 1
-      z: 0
-      w: 0
-    ez:
-      x: 0
-      y: 0
-      z: 1
-      w: 0
-    ew:
-      x: 0
-      y: 0
-      z: 0
-      w: 1
-  m_Scale:
-    x: 1
-    y: 1
-    z: 1
-    w: 1
 --- !u!1 &791401595
 GameObject:
   m_ObjectHideFlags: 0
@@ -767,8 +600,8 @@ Camera:
   m_GameObject: {fileID: 791401595}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.03773582, g: 0.03773582, b: 0.03773582, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -2133,7 +1966,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projection: 0
-  background: 0
+  background: 1
+  culling: 0
 --- !u!114 &2126181668
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2163,15 +1997,15 @@ MonoBehaviour:
       z: 0
       w: -0
     ez:
-      x: 0
+      x: -0
       y: 0
-      z: 1
-      w: -0
+      z: -0.00000004371139
+      w: -1
     ew:
       x: 0
       y: 0
-      z: 0
-      w: 1
+      z: 1
+      w: -0.00000004371139
   m_Scale:
     x: 1
     y: 1
@@ -2187,8 +2021,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 667067998}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

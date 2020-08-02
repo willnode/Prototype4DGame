@@ -172,7 +172,7 @@ namespace Engine4.Rendering
                     {
                         var v = _cell120Vertices[i];
                         v = Utility.GiveSign(v, x, y);
-                        buffer.AddVertex(v * radius);
+                        buffer.AddVertex(v);
                     }
             // 3 * 4 * 16 => 192 + 24 => 216
             for (int i = 0; i < _cell120Vertices2.Length; i++)
@@ -185,7 +185,7 @@ namespace Engine4.Rendering
                                     var v = Vector4.one * _cell120Vertices2[i][1];
                                     v[j] = _cell120Vertices2[i][0];
                                     v = Utility.GiveSign(v, x, y, z, w);
-                                    buffer.AddVertex(v * radius);
+                                    buffer.AddVertex(v);
                                 }
             // 24 * 8 => 192 + 216 = 408
             for (int i = 0; i < _cell120Vertices3.Length; i++)
@@ -195,7 +195,7 @@ namespace Engine4.Rendering
                         {
                             var v = _cell120Vertices3[i];
                             v = Utility.GiveSign(v, x, y, z);
-                            buffer.AddVertex(v * radius);
+                            buffer.AddVertex(v);
                         }
             // 12 * 16 => 192 + 408 = 600
             for (int i = 0; i < _cell120Vertices4.Length; i++)
@@ -206,11 +206,11 @@ namespace Engine4.Rendering
                             {
                                 var v = _cell120Vertices4[i];
                                 v = Utility.GiveSign(v, x, y, z, w);
-                                buffer.AddVertex(v * radius);
+                                buffer.AddVertex(v);
                             }
 
             // Normalize
-            var _R = 1 / (_GR * _GR);
+            var _R = radius / (_GR * _GR);
             for (int i = 0; i < buffer.m_VerticesCount; i++)
             {
                 buffer.m_Vertices[i] *= _R;
@@ -353,7 +353,7 @@ namespace Engine4.Rendering
                         {
                             var v = _hexacosidedroidVertices[i];
                             v = Utility.GiveSign(v, x, y, z);
-                            buffer.AddVertex(v * radius);
+                            buffer.AddVertex(v);
                         }
 
             // 104 + 8 = 112
@@ -362,7 +362,7 @@ namespace Engine4.Rendering
                 {
                     var v = Vector4.zero;
                     v[a] = b * 2;
-                    buffer.AddVertex(v * radius);
+                    buffer.AddVertex(v);
                 }
             // 96 + 8 = 104
             for (int x = -1; x <= 1; x += 2)
@@ -371,13 +371,14 @@ namespace Engine4.Rendering
                         for (int w = -1; w <= 1; w += 2)
                         {
                             var v = new Vector4(x, y, z, w);
-                            buffer.AddVertex(v * radius);
+                            buffer.AddVertex(v);
                         }
 
             // Normalize
+            var _R = radius / 2;
             for (int i = 0; i < buffer.m_VerticesCount; i++)
             {
-                buffer.m_Vertices[i] = buffer.m_Vertices[i] / (2);
+                buffer.m_Vertices[i] = buffer.m_Vertices[i] * _R;
             }
 
             // Magic cell-table: http://web.archive.org/web/20091024133911/http://homepages.cwi.nl/~dik/english/mathematics/poly/db/3,3,5/c/s-1.html

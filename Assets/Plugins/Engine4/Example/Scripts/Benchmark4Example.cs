@@ -11,12 +11,11 @@ namespace Engine4.Example
 
         public GameObject obj;
         public int count;
+        public bool variable;
         public Text fps;
 
         int frames;
         float captured;
-
-        Matrix4 m;
 
         // Use this for initialization
         void Start()
@@ -25,7 +24,6 @@ namespace Engine4.Example
             {
                 Instantiate(obj, Vector4.forward * i, Matrix4.identity);
             }
-            m = Matrix4.Euler(0, 2);
         }
 
         // Update is called once per frame
@@ -38,7 +36,7 @@ namespace Engine4.Example
                 fps.text = "MS: " + (delta * 1000).ToString("0.00") + " FPS: " + (1f / delta).ToString("0.0");
                 captured = Time.time;
             }
-            viewer4.transform4.Rotate(m, Space4.Self);
+            viewer4.transform4.Rotate(Matrix4.Euler(0, variable ? 90 * Time.deltaTime : 2), Space4.Self);
         }
     }
 }

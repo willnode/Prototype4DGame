@@ -93,6 +93,20 @@ namespace Engine4
         }
 
         /// <summary>
+        /// Interpolate between two profile (without clamping)
+        /// </summary>
+        public static VertexProfile LerpUnclamped(VertexProfile a, VertexProfile b, float t, Matrix4x5 m)
+        {
+            return new VertexProfile
+            {
+                color = Color.LerpUnclamped(a.color, b.color, t),
+                uv = m * UnityEngine.Vector4.LerpUnclamped(a.uv, b.uv, t),
+                uv2 = m * UnityEngine.Vector4.LerpUnclamped(a.uv2, b.uv2, t),
+                uv3 = m * UnityEngine.Vector4.LerpUnclamped(a.uv3, b.uv3, t),
+            };
+        }
+
+        /// <summary>
         /// Transform UV Profile
         /// </summary>
         public static VertexProfile Transform (Matrix4x4 t, VertexProfile profile)

@@ -105,7 +105,7 @@ namespace Engine4.Rendering
             var view = Viewer4.main.gameObject;
             if (_main = view.GetComponentInChildren<GizmosContainer4>()) return _main;
             var obj = new GameObject("Gizmos4 Container", typeof(GizmosContainer4));
-            obj.hideFlags = HideFlags.NotEditable | HideFlags.DontSaveInEditor | HideFlags.DontSaveInBuild;
+            obj.hideFlags = HideFlags.HideAndDontSave;
             obj.transform.SetParent(view.transform, false);
             return _main = obj.GetComponent<GizmosContainer4>();
         }
@@ -113,7 +113,7 @@ namespace Engine4.Rendering
         GizmosRenderer4 CreateRenderer(GizmosRenderer4.GizmoRendererType type)
         {
             var obj = new GameObject("Gizmos4 Renderer", typeof(GizmosRenderer4));
-            obj.hideFlags = HideFlags.NotEditable | HideFlags.DontSaveInEditor | HideFlags.DontSaveInBuild;
+            obj.hideFlags = HideFlags.HideAndDontSave;
             obj.transform.SetParent(gameObject.transform, false);
             var rend = obj.GetComponent<GizmosRenderer4>();
             rend.Init(type);

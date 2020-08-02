@@ -29,7 +29,7 @@ namespace Engine4
         /// <remarks>
         /// Changes to this variable requires a call to <see cref="Validate"/> to take effect.
         /// </remarks>
-        public bool background = true;
+        public bool background = false;
 
         /// <summary>
         /// Should renderers enable culling? (experimental)
@@ -37,7 +37,7 @@ namespace Engine4
         /// <remarks>
         /// Changes to this variable requires a call to <see cref="Validate"/> to take effect.
         /// </remarks>
-        public bool culling = true;
+        public bool culling = false;
 
         Projector4 _projector;
 
@@ -89,6 +89,7 @@ namespace Engine4
                 if (!_job)
                 {
                     var g = new GameObject("Viewer4 Jobs", typeof(ProjectorJob));
+                    g.hideFlags = HideFlags.HideAndDontSave;
                     g.transform.SetParent(transform, false);
                     _job = g.GetComponent<ProjectorJob>();
                 }

@@ -78,6 +78,11 @@ namespace Engine4.Rendering
             set { focalLength = 1 / Mathf.Tan(Mathf.Clamp(value, 0.01f, 179.9f) * Mathf.Deg2Rad); }
         }
 
+        private void OnValidate()
+        {
+            GetComponent<Viewer4>().SetDirty(DirtyLevel.Transform);
+        }
+
         /// 
         [HideInDocs]
         public override void Setup(Matrix4x5 viewer)
