@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour4
     public float rotateSpeed = 15;
     internal Euler4 angles;
     internal Vector3 angles3D;
+    [SerializeField]
     internal bool lockZW = false;
     // Update is called once per frame
     void Update()

@@ -12,7 +12,7 @@ namespace Engine4.Internal
     {
         // Actual object
         List<T> _list = new List<T>();
-        // Hash, and index in the list
+        // Hash, returns index in the list
         Dictionary<int, int> _hash = new Dictionary<int, int>();
 
         public T this[int index]
@@ -28,6 +28,11 @@ namespace Engine4.Internal
         {
             _hash[t.GetHashCode()] = _list.Count;
             _list.Add(t);
+        }
+
+        public T Find(int hash)
+        {
+            return _list[_hash[hash]];
         }
 
         public bool Contains(T t)

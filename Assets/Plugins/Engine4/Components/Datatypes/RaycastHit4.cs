@@ -62,6 +62,6 @@
         public bool hit { get { return hash > 0; } }
 
         /// <summary> The collider that hits </summary>
-        public Collider4 collider { get { return hash > 0 ? (Collider4)Physics4.main.scene.Shapes[hash].Tag : null; } }
+        public Collider4 collider { get { return hash > 0 ? (Collider4)Physics4.main.scene.Shapes.Find(hash).Tag : null; } }
     }
 }

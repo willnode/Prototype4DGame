@@ -16,10 +16,14 @@ public class Swapper3DSensor : MonoBehaviour4
     void OnEnable()
     {
         GetComponent<Collider4>().callback += OnCollisionCallback;
+        Debug.Log(Physics4.main.collisionCallbacks);
     }
     void OnDisable()
     {
-        GetComponent<Collider4>().callback -= OnCollisionCallback;
+        if (!enabled)
+        {
+            GetComponent<Collider4>().callback -= OnCollisionCallback;
+        }
     }
 
     // Update is called once per frame
@@ -41,11 +45,13 @@ public class Swapper3DSensor : MonoBehaviour4
     IEnumerator TweenPlayerCamera(float target)
     {
         float refSpeed = 0;
+        player.rigidbody4.enabled = false;
         while (Mathf.Abs(target - player.angles.v) > 0.01f)
         {
             player.angles.v = Mathf.SmoothDampAngle(player.angles.v, target, ref refSpeed, 0.5f);
             yield return null;
         }
+        player.rigidbody4.enabled = true;
         player.angles.v = target;
     }
 }
