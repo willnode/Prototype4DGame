@@ -16,7 +16,6 @@ public class Swapper3DSensor : MonoBehaviour4
     void OnEnable()
     {
         GetComponent<Collider4>().callback += OnCollisionCallback;
-        Debug.Log(Physics4.main.collisionCallbacks);
     }
     void OnDisable()
     {

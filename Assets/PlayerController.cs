@@ -8,8 +8,14 @@ public class PlayerController : MonoBehaviour4
     public float rotateSpeed = 15;
     internal Euler4 angles;
     internal Vector3 angles3D;
-    [SerializeField]
-    internal bool lockZW = false;
+    internal bool m_lockZW = false;
+
+    public bool lockZW
+    {
+        get => m_lockZW;
+        set => GetComponent<GUIController>().SetWZLock(m_lockZW = value);
+    }
+
     // Update is called once per frame
     void Update()
     {
