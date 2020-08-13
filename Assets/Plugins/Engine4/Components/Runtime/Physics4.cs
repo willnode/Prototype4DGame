@@ -20,6 +20,8 @@ namespace Engine4.Physics
         /// </summary>
         public PhysicsMaterial4 defaultMaterial;
 
+        public float timeScale = 1f;
+
         void Start()
         {
             if (Application.isPlaying && main != this) Destroy(this); // multiscenario fix
@@ -40,7 +42,7 @@ namespace Engine4.Physics
         void FixedUpdate()
         {
             if (Time.deltaTime > 1e-4)
-                scene.Step(Time.deltaTime);
+                scene.Step(Time.deltaTime * timeScale);
 
             if (onStayCallbacks.Count > 0)
             {

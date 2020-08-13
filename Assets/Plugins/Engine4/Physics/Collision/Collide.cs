@@ -33,8 +33,8 @@ namespace Engine4.Physics.Internal
         {
             Matrix4x5 atx = a.GetWorldTransform();
             Matrix4x5 btx = b.GetWorldTransform();
-            Vector4 eA = a.extent, eB = b.extent, e;
-            
+            Vector4 eA = a.extent, eB = b.extent;
+
             // B's frame input A's space
             Matrix4 E = btx.rotation / atx.rotation, C = Matrix4.Abs(E);
             Vector4 T = btx.position / atx;
@@ -43,7 +43,6 @@ namespace Engine4.Physics.Internal
             float s, S = float.MinValue;
             Vector4 N = new Vector4();
             int axis = -1;
-            Matrix4 basis;
 
             // SAT from A
             for (int i = 0; i < 4; i++)
@@ -55,7 +54,7 @@ namespace Engine4.Physics.Internal
                     axis = i;
                 }
             }
-            
+
             // SAT from B
             for (int i = 0; i < 4; i++)
             {
@@ -82,15 +81,11 @@ namespace Engine4.Physics.Internal
 
             Algorithm.ComputeIncidentFace(btx, eB, N, Algorithm.incident);
 
-            Algorithm.ComputeReferenceEdgesAndBasis(eA, atx, N, axis, out basis, out e);
+            Algorithm.ComputeReferenceEdgesAndBasis(eA, atx, N, out Matrix4 basis, out Vector4 e);
 
             Algorithm.Clip(atx.position, e, basis, Algorithm.incident, m);
 
             m.normal = axis >= 4 ? - N : N;
-
-            if (m.contacts == 0)
-                Debug.LogWarning("SOME DEATH AT " + Time.frameCount);
-
         }
 
         //--------------------------------------------------------------------------------------------------

@@ -1,6 +1,9 @@
 ﻿
 using Engine4.Internal;
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
 
 namespace Engine4.Physics.Internal
 {
@@ -364,30 +367,11 @@ namespace Engine4.Physics.Internal
 
         //--------------------------------------------------------------------------------------------------
         // Return (W-axis) oriented box extent & rotation necessary for clipping
-        public static void ComputeReferenceEdgesAndBasis(Vector4 eR, Matrix4x5 rtx, Vector4 n, int axis, out Matrix4 basis, out Vector4 e)
+        public static void ComputeReferenceEdgesAndBasis(Vector4 eR, Matrix4x5 rtx, Vector4 n, out Matrix4 basis, out Vector4 e)
         {
-            n = n / rtx.rotation;
-
-            axis = axis % 4;
-
-            //{
-            //    e = new Vector4();
-            //    e[0] = eR[(axis + 1) % 4];
-            //    e[1] = eR[(axis + 2) % 4];
-            //    e[2] = eR[(axis + 3) % 4];
-            //    e[3] = eR[axis];
-            //}
-            //{
-            //    basis = new Matrix4();
-            //    basis.Column0 = rtx.rotation.Column((axis + 1) % 4);
-            //    basis.Column1 = rtx.rotation.Column((axis + 2) % 4);
-            //    basis.Column2 = rtx.rotation.Column((axis + 3) % 4);
-            //    basis.Column3 = rtx.rotation.Column(axis);
-            //    if (Utility.Sign(n[axis]) < 0)
-            //        basis = Matrix4.zero - basis;
-            //}
-            var rotate = Matrix4.Transpose(Matrix4.LookAt(/*new Vector4(axis, Utility.Sign(n[axis]))*/n));
-            basis = rotate * rtx.rotation;
+            n /= rtx.rotation;
+            var rotate = Matrix4.Transpose(Matrix4.LookAt(n));
+            basis = rtx.rotation * rotate;
             e = Vector4.Abs(rotate * eR);
         }
 
@@ -415,43 +399,34 @@ namespace Engine4.Physics.Internal
 
         //--------------------------------------------------------------------------------------------------
         // Axis-aligned clipping algo
-        public static int Orthographic(float e, int axis, Vector4[] input, int length, Vector4[] result)
+        public static void Orthographic(float sign, float e, int axis, List<Vector4> points, List<int> input, List<int> result)
         {
-            int count = 0;
+            result.Clear();
 
-            for (int i = 0; i < length; ++i)
+            for (int i = 0; i < input.Count; i+= 2)
             {
-                Vector4 a = input[i], b = input[(i + 1) % length];
+                int a = input[i], b = input[i + 1];
+                Vector4 A = points[a], B = points[b];
 
-                float xa = a[axis], xb = b[axis],  da = Math.Abs(xa) - e, db = Math.Abs(xb) - e;
+                float dA = sign * A[axis] - e, dB = sign * B[axis] - e;
 
-                if (da < 0 && db < 0)
-                    result[count++] = b;
-                else if (da < 0 ^ db < 0)
+                if (dA < 0 && dA < 0)
+                {
+                    result.Add(a);
+                    result.Add(b);
+                }
+                else if (dA < 0 ^ dB < 0)
                 {
                     // Intersection point between A and B
-                    var cv = a + (b - a) * (da / (da - db));
+                    var cv = points.Count;
+                    points.Add(A + (B - A) * (dA / (dA - dB)));
 
-                    if (da < 0)
-                        result[count++] = cv;
-                    else
-                    {
-                        result[count++] = cv;
-                        result[count++] = b;
-                    }
+                    result.Add(cv);
+                    result.Add(dA < 0 ? a : b);
                 }
-                //else if (xa * xb < 0)
-                //{
-                //    result[count++] = a + (b - a) * ((e - xa) / (da - db));
-                //    result[count++] = a + (b - a) * ((-e - xa) / (da - db));
-                //}
             }
-
-            return count;
         }
 
-        static Vector4[] input = new Vector4[Common.MULTICONTACT_COUNT];
-        static Vector4[] result = new Vector4[Common.MULTICONTACT_COUNT];
         static internal Vector4[] incident = new Vector4[8];
 
         //--------------------------------------------------------------------------------------------------
@@ -459,32 +434,41 @@ namespace Engine4.Physics.Internal
         // http://www.randygaul.net/2014/10/27/sutherland-hodgman-clipping/
         public static void Clip(Vector4 rPos, Vector4 e, Matrix4 basis, Vector4[] incident, Manifold m)
         {
-            int count = 8;
             float d;
+            var invertex = ListPool<Vector4>.Pop();
+            var in1 = ListPool<int>.Pop();
+            var in2 = ListPool<int>.Pop();
 
-            for (int i = 0; i < 8; ++i)
-                input[i] = (incident[i] - rPos) / basis;
+            for (int i = 0; i < 8; i++)
+                invertex.Add((incident[i] - rPos) / basis);
+            for (int i = 0; i < 4; i++)
+            {
+                in1.Add(i);
+                in1.Add((i + 1) % 4);
+                in1.Add(i + 4);
+                in1.Add((i + 1) % 4 + 4);
+                in1.Add(i);
+                in1.Add(i + 4);
+            }
 
-            // Clip extent X
-            if ((count = Orthographic(e.x, 0, input, count, result)) == 0)
-                return;
+            Orthographic(1, e.x, 0, invertex, in1, in2);
+            Orthographic(-1, e.x, 0, invertex, in2, in1);
+            Orthographic(1, e.y, 1, invertex, in1, in2);
+            Orthographic(-1, e.y, 1, invertex, in2, in1);
+            Orthographic(1, e.z, 2, invertex, in1, in2);
+            Orthographic(-1, e.z, 2, invertex, in2, in1);
 
-            // Clip extent Y
-            if ((count = Orthographic(e.y, 1, result, count, input)) == 0)
-                return;
-
-            // Clip extent Z
-            if ((count = Orthographic(e.z, 2, input, count, result)) == 0)
-                return;
-
-            for (int i = 0; i < count; ++i)
+            foreach (var i in in1.Distinct())
             {
                 // Clip extent W
-                if ((d = result[i].w - e.w) < 0f)
+                if ((d = invertex[i].w - e.w) < 0f)
                 {
-                    m.MakeContact(basis * result[i] + rPos, d);
+                    m.MakeContact(basis * invertex[i] + rPos, d);
                 }
             }
+            ListPool<Vector4>.Push(invertex);
+            ListPool<int>.Push(in1);
+            ListPool<int>.Push(in2);
         }
     }
 }
