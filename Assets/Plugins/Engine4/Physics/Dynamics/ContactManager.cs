@@ -137,6 +137,7 @@ namespace Engine4.Physics.Internal
 
             if (a & !b) { ContactListener.BeginContact(c); c.flags |= ContactFlags.WasColliding; }
             else if (b & !a) { ContactListener.EndContact(c); c.flags &= ~ContactFlags.WasColliding; }
+            else if (!(a || b) && ContactListener.CheckStaying(c)) { ContactListener.EndContact(c); }
         }
 
         internal Set<Contact> contactList;

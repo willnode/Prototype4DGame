@@ -8,7 +8,7 @@ namespace Engine4
     /// <summary>
     /// Transformation component in 4D
     /// </summary>
-    [DisallowMultipleComponent]
+    [DisallowMultipleComponent, ExecuteAlways]
     public class Transform4 : MonoBehaviour
     {
         [SerializeField]

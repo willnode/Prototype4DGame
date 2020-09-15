@@ -35,6 +35,7 @@ namespace Engine4.Physics.Internal
     {
         void BeginContact(Contact contact);
         void EndContact(Contact contact);
+        bool CheckStaying(Contact contact);
     }
 
     // This class represents general queries for points, AABBs and Raycasting.

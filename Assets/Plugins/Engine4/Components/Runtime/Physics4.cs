@@ -123,6 +123,11 @@ namespace Engine4.Physics
                 onStayCallbacks.Remove(b);
             }
         }
+
+        public bool CheckStaying(Contact contact)
+        {
+            return onStayCallbacks.Contains(contact.A.hash) || onStayCallbacks.Contains(contact.B.hash);
+        }
     }
 
 }

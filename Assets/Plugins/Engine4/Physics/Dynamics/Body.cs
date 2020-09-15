@@ -356,12 +356,12 @@ namespace Engine4.Physics.Internal
 
         public Matrix4x5 GetTransform() { return Tx; }
 
-        public void GetTransform(Transform4 t) { t.position = P; t.rotation = Tx.rotation; }
+        public void GetTransform(Transform4 t) { t.position = Tx.position; t.rotation = Tx.rotation; }
 
         public void SetTransform(Vector4 position, Matrix4 rotation)
         {
-            P = position;
             Tx.rotation = rotation;
+            P = position + Tx.rotation * C;
 
             SynchronizeProxies();
         }
